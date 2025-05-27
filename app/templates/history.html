@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User History</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+  <div class="container">
+    <h1>User History</h1>
+
+    <!-- Toggle Buttons -->
+    <div class="toggle-buttons">
+      <button id="verBtn" class="active">Verification History</button>
+      <button id="regBtn">Registration History</button>
+    </div>
+
+    <!-- Verification History Section -->
+    <section id="verificationSection" class="history-section">
+      <div class="controls">
+        <input type="text" placeholder="Search titles..." class="search-box">
+        <select class="sort">
+          <option>Sort by Date</option>
+          <option>Sort by Title</option>
+          <option>Sort by Result</option>
+        </select>
+        <select class="filter">
+          <option>All</option>
+          <option>Accepted</option>
+          <option>Rejected</option>
+        </select>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Title</th>
+            <th>Result</th>
+            <th>Date & Time</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+          <tbody>
+          {% for i, item in enumerate(verification_history, start=1) %}
+          <tr>
+            <td>{{ i }}</td>
+            <td>{{ item.title }}</td>
+            <td class="{{ item.result | lower }}">{{ item.result }}</td>
+            <td>{{ item.timestamp }}</td>
+            <td>
+              <form action="{{url_for('user_routes.analyze_title',username=username)}}" method="post">
+                <input type="hidden" name="title" value="{{item.title}}">
+                <button type="submit" class="info-btn">&#8505;</button>
+              </form>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5">No verification history found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Registration History Section -->
+    <section id="registrationSection" class="history-section hidden">
+      <div class="controls">
+        <input type="text" placeholder="Search titles..." class="search-box">
+        <select class="sort">
+          <option>Sort by Date</option>
+          <option>Sort by Title</option>
+          <option>Sort by Status</option>
+        </select>
+        <select class="filter">
+          <option>All</option>
+          <option>Registered</option>
+          <option>Pending</option>
+        </select>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Date & Time</th>
+            <th>Cancel</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i, item in enumerate(registration_history, start=1) %}
+          <tr>
+            <td>{{ i }}</td>
+            <td>{{ item.title }}</td>
+            <td class="{{ item.status | lower }}">{{ item.status }}</td>
+            <td>{{ item.timestamp }}</td>
+            <td><a href="{{ url_for('user_routes.title_cancel', id=item.id, username=username) }}"><button class="cancel">Cancel</button></a></td>
+            <td><a href="{{ url_for('user_routes.title_description', id=item.id) }}"><button class="info-btn">&#8505;</button></a></td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5">No registration history found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    const verBtn = document.getElementById('verBtn');
+    const regBtn = document.getElementById('regBtn');
+    const verificationSection = document.getElementById('verificationSection');
+    const registrationSection = document.getElementById('registrationSection');
+
+    verBtn.onclick = () => {
+      verBtn.classList.add('active');
+      regBtn.classList.remove('active');
+      verificationSection.classList.remove('hidden');
+      registrationSection.classList.add('hidden');
+    };
+
+    regBtn.onclick = () => {
+      regBtn.classList.add('active');
+      verBtn.classList.remove('active');
+      registrationSection.classList.remove('hidden');
+      verificationSection.classList.add('hidden');
+    };
+  </script>
+</body>
+</html>

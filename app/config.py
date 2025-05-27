@@ -1,0 +1,6 @@
+import os
+
+class Config:
+    SECRET_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55dm5ka2Vmc2dqa2JqZ21xaXV3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjYzNTMxNiwiZXhwIjoyMDYyMjExMzE2fQ.IvGmwW4ao7Fb4WZhO2HNAgzoov06HqXVxrNrT6sCVPU'
+    SUPABASE_URL = 'https://nyvndkefsgjkbjgmqiuw.supabase.co'
+    SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55dm5ka2Vmc2dqa2JqZ21xaXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2MzUzMTYsImV4cCI6MjA2MjIxMTMxNn0.7CB0T4wnqN4Vc1TtYF6cN-Bvy6z1u7JFqPv7Nvt8Gks'

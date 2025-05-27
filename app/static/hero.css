@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    background-color: #2e2e2e;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 20px 40px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.logo {
+    height: 40px;
+}
+
+.nav-buttons button {
+    background-color: #1a1a1a;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.nav-buttons {
+    margin-right: 50px;
+}
+
+.nav-buttons button:hover {
+    background-color: #444;
+}
+
+.hero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #ccc;
+}
+
+
+
+/* Flash messages */
+.flashes {
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.flashes li {
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.flashes .success {
+  background: #2ecc71;
+}
+
+.flashes .error {
+  background: #e74c3c;
+}

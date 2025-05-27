@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Respond to Query</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard3.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <!-- Reused sidebar -->
+            <h2 class="logo">PRGI</h2>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('admin_routes.manage_users') }}">Manage Users</a></li>
+                    <li><a href="{{ url_for('admin_routes.official_requests') }}">Official Requests</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header>
+                <h1>Respond to Query</h1>
+                <button class="back-btn"><a href="{{ url_for('admin_routes.admin_dashboard') }}" class="back-btn">← Back</a></button><br>
+            </header>
+
+            <section class="query-details">
+                <h3>Query from: {{ query.username }} ({{ query.role|capitalize }})</h3><br>
+                <p><strong>Submitted at:</strong> {{ query.submitted_at }}</p>
+                <div class="message-box">
+                    <strong>Query:</strong>
+                    <pre>{{ query.query }}</pre>
+                </div>
+            </section>
+
+            <form method="post" action="{{ url_for('admin_routes.respond') }}">
+                <input type="hidden" name="query_id" value="{{ query.id }}">
+                <label for="response">Your Response:</label>
+                <textarea id="response" name="response" rows="5" required></textarea>
+                <button type="submit" class="submit-btn">Send Response</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

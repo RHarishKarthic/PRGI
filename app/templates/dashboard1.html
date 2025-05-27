@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Title Applicant</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='dashboard1.css')}}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <h2>PRGI</h2>
+            <ul>
+                <li><a href="{{ url_for('common_routes.existing_titles') }}">Existing Titles</a></li>
+                <li><a href="{{ url_for('user_routes.user_history',username=user) }}">History</a></li>
+                <li><a href="{{ url_for('common_routes.settings', username=user) }}">Settings</a></li>
+                <li><a href="{{ url_for('auth.hero') }}">Logout</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <h1>Submit Title for Verification</h1>
+            <form class="verify-form" method="POST" action="{{ url_for('user_routes.analyze_title',username=user) }}">
+                <input type="text" name="title" placeholder="Enter Title" required>
+                <button type="submit">Verify</button>
+            </form>
+        </main>
+
+        <button class="notification-btn">🔔</button>
+    </div>
+</body>
+</html>

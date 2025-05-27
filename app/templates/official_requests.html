@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Official Signup Requests</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='official_requests.css') }}">
+</head>
+<body>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <div class="container">
+    <h1>Official Signup Requests</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Approve</th>
+          <th>Reject</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for idx, user in enumerate(pending_officials, start=1) %}
+        <tr>
+          <td>{{ idx }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.full_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <form method="post" action="{{ url_for('admin_routes.approve_official') }}">
+              <input type="hidden" name="username" value="{{ user.username }}">
+              <button class="approve-btn" type="submit">Approve</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" action="{{ url_for('admin_routes.reject_official') }}">
+              <input type="hidden" name="username" value="{{ user.username }}">
+              <button class="reject-btn" type="submit">Reject</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6">No pending requests.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

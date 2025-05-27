@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='registration.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h1>Title Registration</h1>
+        <form class="registration-form" method="POST" action="{{ url_for('user_routes.register_title', username=username, title=title) }}">
+            <!-- Title Details -->
+            <fieldset>
+                <legend>Title Details</legend>
+
+                <label for="title-name">Proposed Title Name</label>
+                <input type="text" name="title-name" id="title-name" value="{{title}}" required disabled>
+
+                <label for="language">Language of Publication</label>
+                <select name="language" id="language" required>
+                    <option value="">-- Select Language --</option>
+                    <option value="Assamese">Assamese</option>
+                    <option value="Bengali">Bengali</option>
+                    <option value="Bodo">Bodo</option>
+                    <option value="Dogri">Dogri</option>
+                    <option value="Gujarati">Gujarati</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="Kannada">Kannada</option>
+                    <option value="Kashmiri">Kashmiri</option>
+                    <option value="Konkani">Konkani</option>
+                    <option value="Maithili">Maithili</option>
+                    <option value="Malayalam">Malayalam</option>
+                    <option value="Manipuri">Manipuri</option>
+                    <option value="Marathi">Marathi</option>
+                    <option value="Nepali">Nepali</option>
+                    <option value="Odia">Odia</option>
+                    <option value="Punjabi">Punjabi</option>
+                    <option value="Sanskrit">Sanskrit</option>
+                    <option value="Santali">Santali</option>
+                    <option value="Sindhi">Sindhi</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="Telugu">Telugu</option>
+                    <option value="Urdu">Urdu</option>
+                </select>
+
+                <label for="periodicity">Periodicity</label>
+                <select name="periodicity" id="periodicity" required>
+                    <option value="">-- Select Periodicity --</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+
+                <label for="place">Place of Publication</label>
+                <select name="place" id="place" required>
+                    <option value="">-- Select State/UT --</option>
+                    <!-- States -->
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+
+                    <!-- Union Territories -->
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Puducherry">Puducherry</option>
+                </select>
+
+                <label for="category">Title Category</label>
+                <select name="category" id="category" required>
+                    <option value="">-- Select Category --</option>
+                    <option value="newspaper">Newspaper</option>
+                    <option value="magazine">Magazine</option>
+                    <option value="journal">Journal</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="format">Publication Format</label>
+                <select name="format" id="format" required>
+                    <option value="">-- Select format --</option>
+                    <option value="printed">Printed</option>
+                    <option value="online">Online</option>
+                    <option value="both">Both</option>
+                </select>
+
+                <label for="justification">Title Justification</label>
+                <textarea name="justification" id="justification" placeholder="Explain your reason for this title selection..." required></textarea>
+            </fieldset>
+
+            <!-- Ownership Details -->
+            <fieldset>
+                <legend>Ownership Details</legend>
+
+                <label for="owner-name">Owner's Name</label>
+                <input type="text" name="owner-name" id="owner-name" required>
+
+                <label for="publisher-name">Publisher's Name</label>
+                <input type="text" name="publisher-name" id="publisher-name" required>
+
+                <label for="legal-entity">Legal Entity Type</label>
+                <select name="legal-entity" id="legal-entity" required>
+                    <option value="">-- Select Entity Type --</option>
+                    <option value="Proprietorship">Proprietorship</option>
+                    <option value="Partnership">Partnership</option>
+                    <option value="Limited Liability Partnership (LLP)">Limited Liability Partnership (LLP)</option>
+                    <option value="Private Limited Company">Private Limited Company</option>
+                    <option value="Public Limited Company">Public Limited Company</option>
+                    <option value="One Person Company (OPC)">One Person Company (OPC)</option>
+                    <option value="Trust">Trust</option>
+                    <option value="Society">Society</option>
+                    <option value="Section 8 Company (Non-Profit)">Section 8 Company (Non-Profit)</option>
+                    <option value="Co-operative Society">Co-operative Society</option>
+                    <option value="Government Department/Body">Government Department/Body</option>
+                    <option value="Others">Others</option>
+                </select>
+
+            </fieldset>
+
+            <!-- Applicant Details -->
+            <fieldset>
+                <legend>Applicant Details</legend>
+
+                <label for="applicant-name">Applicant's Full Name</label>
+                <input type="text" name="applicant-name" id="applicant-name" value="{{user['full_name']}}"  required>
+
+                <label for="applicant-username">Username</label>
+                <input type="text" name="applicant-username" id="applicant-username" value="{{user['username']}}" required>
+
+                <label for="applicant-email">Email</label>
+                <input type="email" name="applicant-email" id="applicant-email" value="{{user['email']}}"  required>
+            </fieldset>
+
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+    </div>
+</body>
+</html>
+

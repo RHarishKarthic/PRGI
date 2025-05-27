@@ -1,0 +1,89 @@
+body {
+  background: #353535;
+  font-family: 'Segoe UI', sans-serif;
+  color: #eee;
+  padding: 40px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+h1 {
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+/* Flash messages */
+.flashes {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.flashes li {
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.flashes .success {
+  background: #27ae60;
+}
+
+.flashes .error {
+  background: #e74c3c;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  color: #111;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+thead {
+  background: #222;
+  color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background: #f5f5f5;
+}
+
+/* Buttons */
+.approve-btn {
+  background: #2ecc71;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.approve-btn:hover {
+  background: #28b463;
+}
+
+.reject-btn {
+  background: #e74c3c;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reject-btn:hover {
+  background: #c0392b;
+}

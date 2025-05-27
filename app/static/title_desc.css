@@ -1,0 +1,164 @@
+body {
+            margin: 0;
+            background-color: rgb(76, 76, 76);
+            font-family: Arial, sans-serif;
+        }
+
+        .box {
+            display: flex;
+            position: absolute;
+            background-color: rgb(22, 22, 22);
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 85%;
+            width: 70%;
+            border: none;
+            border-radius: 20px;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .top {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            height: 65px;
+            width: calc(100% - 40px);
+            color: white;
+        }
+
+        .x {
+            height: 30px;
+            width: 30px;
+            border: none;
+            border-radius: 40%;
+            color: white;
+            background-color: red;
+            font-size: 25px;
+            margin-left: 20px;
+            transition-duration: .35s;
+            cursor: pointer;
+        }
+
+        .title {
+            color: white;
+            font-size: 32px;
+            margin: 0;
+            margin-left: 30px;
+            flex-grow: 1;
+        }
+
+        .x:hover {
+            transform: scale(1.2);
+            background-color: rgb(119, 0, 0);
+        }
+
+        .x:active {
+            border: solid 1px white;
+        }
+
+        .info {
+            background-color: rgb(212, 212, 212);
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            height: 75%;
+            width: 95%;
+            top: 20%;
+            left: 2.5%;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            border-bottom: 1px solid #999;
+            padding-bottom: 5px;
+        }
+
+        .field-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+
+        .field-label {
+            font-weight: bold;
+            width: 200px;
+            color: #444;
+        }
+
+        .field-value {
+            flex-grow: 1;
+            color: #222;
+        }
+
+        .footer {
+            position: relative;
+            bottom: 20px;
+            width: calc(100% - 40px);
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .status-pending {
+            background-color: #f39c12;
+        }
+
+        .status-approved {
+            background-color: #2ecc71;
+        }
+
+        .status-rejected {
+            background-color: #e74c3c;
+        }
+
+        .status-cancelled {
+            background-color: #dddddd;   
+        }
+
+        
+/* Flash messages */
+.flashes {
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.flashes li {
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.flashes .success {
+  background: #2ecc71;
+}
+
+.flashes .error {
+  background: #e74c3c;
+}

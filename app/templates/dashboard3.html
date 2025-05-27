@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard3.css') }}">
+</head>
+<body>
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for cat, msg in messages %}
+                    <li class="{{ cat }}">{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <div class="wrapper">
+        <aside class="sidebar">
+            <h2 class="logo">PRGI</h2>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('admin_routes.manage_users') }}">Manage Users</a></li>
+                    <li><a href="{{ url_for('admin_routes.official_requests') }}">Official Requests</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header>
+                <h1>Support Queries</h1>
+            </header>
+
+            <section class="table-block">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for q in queries %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ q.username }}</td>
+                            <td>{{ q.role|capitalize }}</td>
+                            <td>{{ q.submitted_at }}</td>
+                            <td>
+                                <!-- Link to response page instead of modal -->
+                                <a href="{{ url_for('admin_routes.view_query', query_id=q.id) }}" 
+                                   class="btn">Respond</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5">No pending requests.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

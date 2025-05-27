@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Restricted Content</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'restriction.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <header class="page-header">
+            <h1>Manage Restricted Words & Affixes</h1>
+        </header>
+
+        <div class="toggle-buttons">
+            <button id="wordsBtn" class="active">Restricted Words</button>
+            <button id="affixesBtn">Restricted Affixes</button>
+        </div>
+
+        
+        <!-- Restricted Words Section -->
+        <section id="wordsSection" class="data-section active">
+
+                <!-- Search, Sort, Filter -->
+            <div class="controls">
+                <input type="text" placeholder="Search..." class="search">
+                <select class="sort">
+                    <option>Sort by</option>
+                    <option>Latest</option>
+                    <option>Oldest</option>
+                    <option>A-Z</option>
+                    <option>Z-A</option>
+                </select>
+                <select class="filter">
+                    <option>Filter</option>
+                    <option>Updated Today</option>
+                    <option>Updated This Week</option>
+                </select>
+                <form action="{{ url_for('official_routes.add_word', username=username) }}" method="POST">
+                    <input class="a" type="text" name="new_word" placeholder="Add new word" required>
+                    <button type="submit" class="add-new">+ Add New</button>
+                </form>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Restricted Word</th>
+                        <th>Last Updated By</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for idx, word in enumerate(restricted_words) %}
+                    <tr>
+                        <td>{{ idx + 1 }}</td>
+                        <td>{{ word['word'] }}</td>
+                        <td>{{ word['updated_by'] or 'N/A' }}</td>
+                        <td>
+                            <form action="{{ url_for('official_routes.update_word', username=username) }}" method="POST">
+                                <input type="hidden" name="word_id" value="{{ word['id'] }}">
+                                <input type="text" class="b" name="new_word" value="{{ word['word'] }}" required>
+                                <button type="submit" class="action update">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('official_routes.delete_word', username=username) }}" method="POST">
+                                <input type="hidden" name="word_id" value="{{ word['id'] }}">
+                                <button type="submit" class="action delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Restricted Affixes Section -->
+        <section id="affixesSection" class="data-section">
+
+        <!-- Search, Sort, Filter -->
+            <div class="controls">
+                <input type="text" placeholder="Search..." class="search">
+                <select class="sort">
+                    <option>Sort by</option>
+                    <option>Latest</option>
+                    <option>Oldest</option>
+                    <option>A-Z</option>
+                    <option>Z-A</option>
+                </select>
+                <select class="filter">
+                    <option>Filter</option>
+                    <option>Updated Today</option>
+                    <option>Updated This Week</option>
+                </select>
+                <form action="{{ url_for('official_routes.add_affix', username=username) }}" method="POST">
+                    <input class="a" placeholder="Add new affix" type="text" name="new_affix" required>
+                    <select class="a" name="affix_type" required>
+                        <option value="Prefix">Prefix</option>
+                        <option value="Suffix">Suffix</option>
+                    </select>
+                    <button type="submit" class="add-new">+ Add New</button>
+                </form>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Restricted Affix</th>
+                        <th>Last Updated By</th>
+                        <th>Affix Type</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for idx, affix in enumerate(restricted_affixes) %}
+                    <tr>
+                        <td>{{ idx + 1 }}</td>
+                        <td>{{ affix['affix'] }}</td>
+                        <td>{{ affix['updated_by'] or 'N/A' }}</td>
+                        <td>{{ affix['type'] }}</td>
+                        <td>
+                            <form action="{{ url_for('official_routes.update_affix', username=username) }}" method="POST">
+                                <input type="hidden" name="affix_id" value="{{ affix['id'] }}">
+                                <input class="b" type="text" name="new_affix" value="{{ affix['affix'] }}" required>
+                                <select class="b" name="affix_type" required>
+                                    <option value="Prefix" {% if affix['type'] == 'Prefix' %} selected {% endif %}>Prefix</option>
+                                    <option value="Suffix" {% if affix['type'] == 'Suffix' %} selected {% endif %}>Suffix</option>
+                                </select>
+                                <button type="submit" class="action update">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('official_routes.delete_affix', username=username) }}" method="POST">
+                                <input type="hidden" name="affix_id" value="{{ affix['id'] }}">
+                                <button type="submit" class="action delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        // Toggle section logic
+        const wordsBtn = document.getElementById('wordsBtn');
+        const affixesBtn = document.getElementById('affixesBtn');
+        const wordsSection = document.getElementById('wordsSection');
+        const affixesSection = document.getElementById('affixesSection');
+
+        wordsBtn.onclick = () => {
+            wordsBtn.classList.add('active');
+            affixesBtn.classList.remove('active');
+            wordsSection.classList.add('active');
+            affixesSection.classList.remove('active');
+        }
+
+        affixesBtn.onclick = () => {
+            affixesBtn.classList.add('active');
+            wordsBtn.classList.remove('active');
+            affixesSection.classList.add('active');
+            wordsSection.classList.remove('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color:#2e2e2e;
+    margin: 0;
+    padding: 40px;
+    color: white;
+  }
+  
+  .container {
+    background-color: rgb(109, 109, 109);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1100px;
+    margin: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+  }
+  
+  .toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+  
+  .toggle-buttons button {
+    padding: 10px 30px;
+    margin: 0 10px;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+  
+  .toggle-buttons button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .history-section {
+    display: block;
+  }
+  
+  .history-section.hidden {
+    display: none;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .search-box, .sort, .filter {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    flex: 1;
+    font-size: 15px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #323232;
+  }
+  
+  .accepted {
+    color: rgb(0, 255, 0);
+    font-weight: bold;
+  }
+  
+  .rejected {
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+  }
+  
+  .registered {
+    color: rgb(0, 255, 0);
+    font-weight: bold;
+  }
+  
+  .pending {
+    color: orange;
+    font-weight: bold;
+  }
+  
+
+.info-btn {
+  padding: 4px 10px; 
+  border: none; 
+  border-radius: 50%;
+  background: #444; 
+  color: #fff; 
+  cursor: pointer; 
+}
+
+.info-btn:hover {
+  background: #0af;
+}
+
+
+
+/* Flash messages */
+.flashes {
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.flashes li {
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.flashes .success {
+  background: #2ecc71;
+}
+
+.flashes .error {
+  background: #e74c3c;
+}
+
+.cancel {
+  padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    flex: 1;
+    font-size: 15px;
+}

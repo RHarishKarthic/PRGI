@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Acceptance Probability</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'Acceptance Probability.css') }}">
+    </head>
+    <body>
+        <div class="box">
+            <div class="top">
+                <a href="{{ url_for('official_routes.official_dashboard', username=username) }}"><button class="x">&times;</button></a>
+                <p class="title">Modify Acceptance Probability</p>
+            </div>
+            <div class="info">
+                <p class="a">Enter the New Acceptance Probability:</p>
+                <form action="{{ url_for('official_routes.acceptance_probability', username=username) }}" method="POST">
+                    <input type="text" name="prob" value="{{ prob }}">
+                    <button type="submit">Change</button>
+                </form>
+                <p class="b">Disclaimer: Be careful while changing this Field, since it applies for the entire website. Misusing this field may result in Legal Issues!!!</p>
+            </div>
+        </div>
+    </body>
+</html>

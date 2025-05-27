@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Approval Dashboard</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --danger: #f72585;
+            --success: #2ecc71;
+            --text: #2b2d42;
+            --bg: #232323;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgb(224, 224, 224);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            overflow-x: auto;
+        }
+        
+        h1 {
+            margin-top: 0;
+            color: var(--primary);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            color: white;
+            transition: opacity 0.3s;
+        }
+        
+        .approve-btn {
+            background-color: var(--success);
+        }
+        
+        .reject-btn {
+            background-color: var(--danger);
+        }
+        
+        .action-btn:hover {
+            opacity: 0.8;
+        }
+        
+        .Pending {
+            color: #f39c12;
+            font-weight: 500;
+        }
+        
+        .Rejected {
+            color: #f31212;
+            font-weight: 500;
+        }
+
+        .Registered {
+            color: #2ccc00;
+            font-weight: 500;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Title Registration Requests</h1>
+       
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Submitted At</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in registration_requests %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ request.title }}</td>
+                    <td>{{ request.publisher or 'N/A' }}</td>
+                    <td>{{ request.timestamp }}</td>
+                    <td class="{{request.status}}">{{ request.status }}</td>
+                    {% if request.status=='Pending' %}
+                    <td>
+                        <form method="POST" action="{{url_for('official_routes.approve_title',username=username)}}" style="display: inline;">
+                            <input type="hidden" name="request_id" value="{{ request.id }}">
+                            <button type="submit" class="action-btn approve-btn">Approve</button>
+                        </form>
+                        <form method="POST" action="{{url_for('official_routes.reject_title',username=username)}}" style="display: inline; margin-left: 5px;">
+                            <input type="hidden" name="request_id" value="{{ request.id }}">
+                            <button type="submit" class="action-btn reject-btn">Reject</button>
+                        </form>
+                    </td>
+                    {% else %}
+                    <td><p>--</p></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Simple client-side search
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                const title = row.cells[1].textContent.toLowerCase();
+                const publisher = row.cells[2].textContent.toLowerCase();
+                if (title.includes(searchTerm) || publisher.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

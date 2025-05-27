@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PRGI Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'dashboard2.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h2 class="logo">PRGI</h2>
+            <ul>
+                <li><a href="{{ url_for('common_routes.existing_titles') }}">Existing Titles</a></li>
+                <li><a href="{{ url_for('official_routes.restrictions', username=username) }}">Restricted Words & Affixes</a></li>
+                <li><a href="{{ url_for('official_routes.approval_dashboard', username=username) }}">Registration Requests</a></li>
+                <li><a href="{{ url_for('official_routes.settings', username=username) }}">Settings</a></li>
+                <li><a href="{{ url_for('auth.hero') }}">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard">
+            <header>
+                <h1>Real-Time Title Registrations</h1>
+            </header>
+
+            <!-- Registered Titles List -->
+            <section class="titles-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Title</th>
+                            <th>Time</th>
+                            <th>Publisher</th>
+                            <th>Language</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for idx, title in enumerate(registered_titles) %}
+                        <tr>
+                            <td>{{ idx + 1 }}</td>
+                            <td>{{ title['title'] }}</td>
+                            <td>{{ title['timestamp'] }}</td>
+                            <td>{{ title['publisher'] }}</td>
+                            <td>{{ title['language'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Button -->
+    <button class="notification-btn">🔔</button>
+</body>
+</html>

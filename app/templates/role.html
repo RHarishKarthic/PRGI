@@ -1,0 +1,58 @@
+<!-- templates/role.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Role - PRGI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='role.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <div class="topbar">
+            <a href="{{ url_for('auth.hero') }}"><button class="back">&larr; Back</button></a>
+            <p class="title">Select Your Role</p>
+        </div>
+        {% if action=='login' %}
+        <div class="roles">
+            <form action="{{ url_for('auth.login_signup') }}" method="get" style="display:inline;">
+                <input type="hidden" name="action" value="{{ action }}">
+                <input type="hidden" name="role" value="title_verifier">
+                <button class="role" type="submit">Title Verifier</button>
+            </form>
+            <form action="{{ url_for('auth.login_signup') }}" method="get" style="display:inline;">
+                <input type="hidden" name="action" value="{{ action }}">
+                <input type="hidden" name="role" value="prgi_official">
+                <button class="role" type="submit">PRGI Official</button>
+            </form>
+            <form action="{{ url_for('auth.login_signup') }}" method="get" style="display:inline;">
+                <input type="hidden" name="action" value="{{ action }}">
+                <input type="hidden" name="role" value="system_admin">
+                <button class="role" type="submit">System Administrator</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="roles">
+            <form action="{{ url_for('auth.login_signup') }}" method="get" style="display:inline;">
+                <input type="hidden" name="action" value="{{ action }}">
+                <input type="hidden" name="role" value="title_verifier">
+                <button class="role" type="submit">Title Verifier</button>
+            </form>
+            <form action="{{ url_for('auth.login_signup') }}" method="get" style="display:inline;">
+                <input type="hidden" name="action" value="{{ action }}">
+                <input type="hidden" name="role" value="prgi_official">
+                <button class="role" type="submit">PRGI Official</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

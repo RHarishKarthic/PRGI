@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Title Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='analysis.css') }}"/>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Title Similarity</h2>
+            <ul class="title-list">
+                <li class="title-item header">
+                    <span>#</span>
+                    <span>Title</span>
+                    <span>%</span>
+                </li>
+                {% for idx, item in enumerate(similarity_scores) %}
+                <li class="title-item">
+                    <span>{{ idx + 1 }}</span>
+                    <span>{{ item['title'] }}</span>
+                    <span>{{ round(item['similarity'],2) }}%</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>Analysis of Submitted Title</h2>
+
+            <div class="metrics">
+                <div class="metric-box">
+                    <h3>Similarity Score</h3>
+                    <p class="value">{{ similarity_percentage }}%</p>
+                </div>
+                <div class="metric-box">
+                    <h3>Verification Probability</h3>
+                    <p class="value">{{ verification_probability }}%</p>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <h3>Status</h3>
+                <p class="status {{ 'accepted' if accepted else 'rejected' }}">
+                    {{ status }}
+                </p>
+            </div>
+
+            {% if not accepted %}
+            <div class="feedback-section">
+                <h3>Feedback</h3>
+                <textarea placeholder="Provide feedback for rejection..." disabled>
+                    {{ feedback }}
+                </textarea>
+            </div>
+            {% endif %}
+
+            <div class="buttons">
+                <form method="get" action="{{ url_for('user_routes.title_applicant_dashboard', username=username, title=title) }}">
+                    <button type="submit" class="modify">Modify & Resubmit</button>
+                </form>
+                {% if status == 'Accepted' %}
+                <form method="get" action="{{ url_for('user_routes.register_title', username=username, title=title) }}">
+                    <button type="submit" class="register">Register Title</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

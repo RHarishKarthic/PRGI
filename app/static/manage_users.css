@@ -1,0 +1,121 @@
+body {
+  background: #404040;
+  font-family: 'Segoe UI', sans-serif;
+  color: #eee;
+  padding: 40px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+h1 {
+  margin-bottom: 25px;
+  font-size: 30px;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.search-box, .filter, .sort {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+}
+
+.search-box {
+  flex: 2;
+}
+
+.filter, .sort {
+  flex: 1;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  color: #111;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+thead {
+  background: #222;
+  color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background: #f4f4f4;
+}
+
+/* Buttons */
+.freeze-btn, .delete-btn, .info-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.freeze-btn {
+  background: #2980b9;
+  color: #fff;
+}
+
+.freeze-btn:hover {
+  background: #1c6392;
+}
+
+.delete-btn {
+  background: #c0392b;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background: #a03024;
+}
+
+.info-btn {
+  padding: 4px 10px; 
+  border: none; 
+  border-radius: 50%;
+  background: #444; 
+  color: #fff; 
+  cursor: pointer; 
+}
+
+.info-btn:hover {
+  background: #0af;
+}
+
+/* Flash messages */
+.flashes {
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.flashes li {
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.flashes .success {
+  background: #2ecc71;
+}
+
+.flashes .error {
+  background: #e74c3c;
+}

@@ -1,0 +1,41 @@
+<!-- templates/hero.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PRGI - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='hero.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <div class="navbar">
+            <img src="{{ url_for('static', filename='logo.png') }}" class="logo">
+            <div class="nav-buttons">
+                <form action="{{ url_for('auth.role_selection') }}" method="get" style="display:inline;">
+                    <input type="hidden" name="action" value="login">
+                    <button type="submit">Login</button>
+                </form>
+                <form action="{{ url_for('auth.role_selection') }}" method="get" style="display:inline;">
+                    <input type="hidden" name="action" value="signup">
+                    <button type="submit">Signup</button>
+                </form>
+                <a href="{{ url_for('common_routes.existing_titles') }}"><button>Existing Titles</button></a>
+                <button disabled>Help & Guidelines</button>
+            </div>
+        </div>
+        <div class="hero">
+            <h1>PRGI - Automated Title Verification and Registration</h1>
+            <p>Your central platform for managing and verifying publication titles securely and efficiently.</p>
+        </div>
+    </div>
+</body>
+</html>
